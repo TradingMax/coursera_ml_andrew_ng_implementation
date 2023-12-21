@@ -1,5 +1,9 @@
 ## Custom
 *.bak 
+# generated when submitting assignments
+token.mat
+# using for quick scripts for octave
+testing.m
 
 ### PyCharm template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
