@@ -5,6 +5,7 @@ from numpy.testing import assert_array_equal, assert_array_almost_equal
 from data_loader import load_data
 import gradient_descent_loop as gdl
 import gradient_descent_vector as gdv
+import gradient_descent_equation as gde
 
 
 @pytest.fixture
@@ -62,6 +63,12 @@ def test_derivative_cost_function_identical(w_init, x_arr, y_arr, x_arr_ones):
 def test_run_gradient_descent_identical(w_init, x_arr, y_arr, x_arr_ones):
     w1, w2 = gdl.run_gradient_descent(x_arr, y_arr, *w_init, 0.01)
     w_vec = gdv.run_gradient_descent(x_arr_ones, y_arr, w_init, 0.01)
+    assert_array_almost_equal(np.array([w1, w2]), w_vec, decimal=12)
+
+
+def test_run_gradient_descent_identical_2(w_init, y_arr, x_arr_ones):
+    w1, w2 = gdv.run_gradient_descent(x_arr_ones, y_arr, w_init, 0.02, 10000)
+    w_vec = gde.normal_equation(x_arr_ones, y_arr)
     assert_array_almost_equal(np.array([w1, w2]), w_vec, decimal=12)
 
 
