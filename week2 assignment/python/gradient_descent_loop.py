@@ -21,23 +21,27 @@ def cost_function(x_arr: np.ndarray, y_arr: np.ndarray, w1: float, w2: float) ->
     return running_sum / (2 * len(x_arr))
 
 
-def derivative_cost_function_w1(x_arr: np.ndarray, y_arr: np.ndarray, w1: float, w2: float):
+def derivative_cost_function_w1(x_arr: np.ndarray, y_arr: np.ndarray, w1: float, w2: float) -> float:
     running_sum = 0
     for x, y in zip(x_arr, y_arr):
         running_sum += err(x, y, w1, w2)
     return running_sum / len(x_arr)
 
 
-def derivative_cost_function_w2(x_arr: np.ndarray, y_arr: np.ndarray, w1: float, w2: float):
+def derivative_cost_function_w2(x_arr: np.ndarray, y_arr: np.ndarray, w1: float, w2: float) -> float:
     running_sum = 0
     for x, y in zip(x_arr, y_arr):
         running_sum += err(x, y, w1, w2) * x
     return running_sum / len(x_arr)
 
 
-def run_gradient_descent(x_arr: np.ndarray, y_arr: np.ndarray, w1_init: float, w2_init: float, a: float):
-    tolerance = 1e-16
-    max_iter = 1500
+def run_gradient_descent(x_arr: np.ndarray,
+                         y_arr: np.ndarray,
+                         w1_init: float,
+                         w2_init: float,
+                         a: float,
+                         max_iter: int = 1500,
+                         tolerance: float = 1e-16) -> tuple[float, float]:
     w1, w2 = w1_init, w2_init
     d1 = d2 = 1
     i = 0

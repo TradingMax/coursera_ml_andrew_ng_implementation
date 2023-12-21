@@ -32,7 +32,6 @@ def w_init(request):
     return np.array(request.param)
 
 
-# Updated test functions using the w_init fixture
 def test_hypothesis_identical(w_init, x_arr, x_arr_ones):
     hypothesis_loop = np.array([gdl.hypothesis(x, *w_init) for x in x_arr])
     assert_array_almost_equal(hypothesis_loop, gdv.hypothesis(x_arr_ones, w_init), decimal=13)
@@ -80,3 +79,22 @@ def test_cost_function_loop(x_arr, y_arr, w1, w2, expected):
 ])
 def test_cost_function_vector(x_arr_ones, y_arr, w, expected):
     assert abs(gdv.cost_function(x_arr_ones, y_arr, w) - expected) < 0.01
+
+
+@pytest.mark.parametrize('population, expected', [
+    (35_000, 4519.767868),
+    (70_000, 45342.450129),
+])
+def test_predict_loop(x_arr, y_arr, population, expected):
+    w1, w2 = gdl.run_gradient_descent(x_arr, y_arr, 0, 0, 0.01)
+    assert abs(gdl.hypothesis(population / 1e4, w1, w2) - expected / 1e4) < 1e-6
+
+
+@pytest.mark.parametrize('population, expected', [
+    ([35_000, 70_000], [4519.767868, 45342.450129]),
+])
+def test_predict_vector(x_arr_ones, y_arr, population, expected):
+    w = gdv.run_gradient_descent(x_arr_ones, y_arr, np.array([0, 0]), 0.01)
+    population = np.array(population) / 1e4
+    population_with_ones = np.vstack([np.ones(len(population)), population]).T
+    assert_array_almost_equal(gdv.hypothesis(population_with_ones, w), np.array(expected) / 1e4, decimal=6)
