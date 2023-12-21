@@ -42,8 +42,8 @@ def run_gradient_descent(x: np.ndarray,
 
 
 if __name__ == '__main__':
-    from data_loader import load_data
-    x_test, y_test = load_data()
+    from data_loader import load_data1
+    x_test, y_test = load_data1()
     x_test = np.vstack([np.ones(len(x_test)), x_test]).T  # Add a row of ones to x_test
     w_test = run_gradient_descent(x_test, y_test, np.array([0.1, 0.1]), 1)
 

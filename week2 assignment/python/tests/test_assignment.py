@@ -2,7 +2,7 @@ import pytest
 import numpy as np
 from numpy.testing import assert_array_equal, assert_array_almost_equal
 
-from data_loader import load_data
+from data_loader import load_data1
 import gradient_descent_loop as gdl
 import gradient_descent_vector as gdv
 import gradient_descent_equation as gde
@@ -10,7 +10,7 @@ import gradient_descent_equation as gde
 
 @pytest.fixture
 def data():
-    return load_data()
+    return load_data1()
 
 
 @pytest.fixture
